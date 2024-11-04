@@ -1,4 +1,5 @@
-import { SignOutButton, UserButton } from "@clerk/nextjs";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default function SignedInNavBar() {
@@ -13,9 +14,9 @@ export default function SignedInNavBar() {
         </div>
 
         <div className="flex flex-col gap-2">
+          <ThemeToggle />
           <Link href="/subscription">Subscription</Link>
-          <UserButton showName />
-          <SignOutButton />
+          <UserButton showName/>
         </div>
     </div>
   )
