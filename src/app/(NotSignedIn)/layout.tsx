@@ -4,9 +4,9 @@ import NotSignedInFooter from "./_components/NotSignedInFooter";
 
 export default function NotSignedInLayout({ children } : { children: ReactNode }) {
   return (
-    <div className="container">
+    <div className="container flex flex-col min-h-screen">
         <NotSignedInNavBar />
-        <div>
+        <div className="py-4 flex-1">
           {children}
         </div>
         <NotSignedInFooter />

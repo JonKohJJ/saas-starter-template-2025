@@ -5,7 +5,7 @@ export default function SignedInLayout({ children } : { children: ReactNode }) {
   return (
     <div className="container flex">
         <SignedInNavBar />
-        <div className="w-[80%]">
+        <div className="w-[80%] py-6 px-4">
           {children}
         </div>
     </div>
