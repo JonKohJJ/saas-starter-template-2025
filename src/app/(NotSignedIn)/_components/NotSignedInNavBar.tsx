@@ -3,11 +3,12 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react"
 import { ThemeToggle } from "@/components/ThemeToggle";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function NotSignedInNavBar() {
   return (
-    <div className="not-signed-in-navbar py-4 flex justify-between items-center">
-        <Link href="/" className="text-5xl">Logo</Link>
+    <div className="not-signed-in-navbar py-6 flex justify-between items-center border-b-[1px] border-neutral-300">
+        <BrandLogo />
 
         <div className="flex gap-2">
             <ThemeToggle />
