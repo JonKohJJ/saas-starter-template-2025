@@ -9,7 +9,6 @@ export default async function DashboardPage(){
 
     const { userId, redirectToSignIn } = await auth()
     if (userId == null) return redirectToSignIn() 
-
     const Todos = await getTodos(userId, { limit: 6 })
 
     return <div>
@@ -25,7 +24,7 @@ export default async function DashboardPage(){
                 <div key={todo.id} className="flex gap-2 items-center mb-2">
                     <p>{index+1}.{todo.todoName}</p>
                     <Button><Pencil /></Button>
-
+ 
                     <DeleteTodoButton id={todo.id} />
                 </div>
             ))}

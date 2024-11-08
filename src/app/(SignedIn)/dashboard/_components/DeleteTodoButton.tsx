@@ -14,7 +14,7 @@ export default function DeleteTodoButton({ id } : { id: string }) {
             console.error(data.message);
             toast({ title: "Error", description: data.message });
         } else {
-            toast({ title: "Success", description: `Todo '${data[0].todoName}' deleted successfully!` });
+            toast({ title: "Success", description: `Todo '${data.todoName}' deleted successfully!` });
         }
     }
 

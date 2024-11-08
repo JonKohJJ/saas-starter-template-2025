@@ -35,7 +35,7 @@ export function TodoForm() {
             console.error(data.message);
             toast({ title: "Error", description: data.message });
         } else {
-            toast({ title: "Success", description: `Todo '${data[0].todoName}' successfully added!` });
+            toast({ title: "Success", description: `Todo '${data.todoName}' successfully added!` });
         }
     }
 
