@@ -6,65 +6,79 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { todosSchema } from "@/schemas/todos"
-import { createTodo } from "@/server/actions/todos"
+import { createTodo, updateTodo } from "@/server/actions/todos"
+import { TodoType } from "./TodoItem"
+import { Dispatch, SetStateAction } from "react"
 
-export function TodoForm() {
+
+export function TodoForm({ todoTobeEdited, setIsEditing } : { todoTobeEdited?: TodoType, setIsEditing?: Dispatch<SetStateAction<boolean>> }) {
 
     const { toast } = useToast()
     const form = useForm<z.infer<typeof todosSchema>>({
         resolver: zodResolver(todosSchema),
-        defaultValues: {
-            todoName: "",
-        }
+        defaultValues: todoTobeEdited ?
+          {
+              todoName: todoTobeEdited.todoName,
+          }
+        :
+          {
+              todoName: "",
+          }
     })
 
     async function onSubmit(values: z.infer<typeof todosSchema>) {
-        const data = await createTodo(values)
+      
+        const data = todoTobeEdited 
+            ? await updateTodo(todoTobeEdited.id, values) 
+            : await createTodo(values)
 
         if ('error' in data) {
             console.error(data.message);
             toast({ title: "Error", description: data.message });
         } else {
-            toast({ title: "Success", description: `Todo '${data.todoName}' successfully added!` });
+            toast({ title: "Success", description: `Todo '${data.todoName}' successfully ${todoTobeEdited ? 'updated' : 'added'}!` });
+        }
+
+        const { reset } = form
+
+        if (todoTobeEdited && setIsEditing) {
+          setIsEditing(false)
+        } else {
+          reset()
         }
     }
 
     return (
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div>
-              <FormField
-                control={form.control}
-                name="todoName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex gap-4">
-                        Input Todo
-                        <FormMessage className="font-bold"/>
-                    </FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="mt-4">
-              <Button disabled={form.formState.isSubmitting} type="submit">
-                Add
-              </Button>
-            </div>
-          </form>
-        </Form>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-2 items-center">
+          <div>
+            <FormField
+              control={form.control}
+              name="todoName"
+              render={({ field }) => (
+                <FormItem className="flex gap-2">
+                  <FormControl>
+                    <Input {...field} disabled={form.formState.isSubmitting}/>
+                  </FormControl>
+                  <FormMessage className="font-bold"/>  
+                </FormItem>
+              )}
+            />
+          </div>
+          <div>
+            <Button disabled={form.formState.isSubmitting} type="submit">
+              {todoTobeEdited ? "Save" : "Add"}
+            </Button>
+          </div>
+        </form>
+      </Form>
     )
 }

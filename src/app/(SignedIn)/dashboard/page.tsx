@@ -1,9 +1,7 @@
 import { getTodos } from "@/server/db/todos"
 import { auth } from "@clerk/nextjs/server"
 import { TodoForm } from "./_components/TodoForm"
-import { Button } from "@/components/ui/button"
-import DeleteTodoButton from "./_components/DeleteTodoButton"
-import { Pencil } from "lucide-react"
+import TodoItem from "./_components/TodoItem"
 
 export default async function DashboardPage(){
 
@@ -20,14 +18,11 @@ export default async function DashboardPage(){
 
         <div className="my-todos mt-8">
             <p>My Todos: </p>
-            {Todos.map((todo, index) => (
-                <div key={todo.id} className="flex gap-2 items-center mb-2">
-                    <p>{index+1}.{todo.todoName}</p>
-                    <Button><Pencil /></Button>
- 
-                    <DeleteTodoButton id={todo.id} />
-                </div>
-            ))}
+            <ol>
+                {Todos.map((todo) => (
+                    <TodoItem todo={todo}/>
+                ))}
+            </ol>
         </div>
     </div>
 }
