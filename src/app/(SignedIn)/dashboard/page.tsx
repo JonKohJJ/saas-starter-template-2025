@@ -20,7 +20,9 @@ export default async function DashboardPage(){
             <p>My Todos: </p>
             <ol>
                 {Todos.map((todo) => (
-                    <TodoItem todo={todo}/>
+                    <li key={todo.id}>
+                        <TodoItem todo={todo}/>
+                    </li>
                 ))}
             </ol>
         </div>

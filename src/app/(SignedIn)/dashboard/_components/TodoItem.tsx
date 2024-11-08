@@ -31,7 +31,7 @@ export default function TodoItem({ todo } : { todo: TodoType }) {
     }
 
     return (
-        <li className="todo-item flex gap-2 items-center mb-2">
+        <span className="todo-item flex gap-2 items-center mb-2">
 
             {isEditing ? 
                 <>
@@ -46,6 +46,6 @@ export default function TodoItem({ todo } : { todo: TodoType }) {
                 </>
             } 
 
-        </li>
+        </span>
     )
 }
