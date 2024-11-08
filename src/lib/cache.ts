@@ -4,7 +4,8 @@ import { cache } from "react"
 export type ValidTags = ReturnType<typeof getGlobalTag> | ReturnType<typeof getUserTag> | ReturnType<typeof getIdTag>
 
 export const CACHE_TAGS = {
-    todos: "todos"
+    todos: "todos",
+    subscription: "subscription"
 } as const
 
 export function getGlobalTag(tag: keyof typeof CACHE_TAGS) {
