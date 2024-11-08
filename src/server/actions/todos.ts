@@ -8,14 +8,16 @@ import {
     deleteTodo as deleteTodoDb,
     updateTodo as updateTodoDb,
 } from "../db/todos";
+import { canAddTodo } from "../permissions";
 
 export async function createTodo(
     unsafeData: z.infer<typeof todosSchema>
 ) {
     const { userId } = await auth()
-    const { success, data } = todosSchema.safeParse(unsafeData) 
+    const { success, data } = todosSchema.safeParse(unsafeData)
+    const canAdd = await canAddTodo(userId)
 
-    if (!success || userId == null) {
+    if (!success || userId == null || !canAdd) {
         return {error: true, message: "There was an error adding your todo"}
     }
 

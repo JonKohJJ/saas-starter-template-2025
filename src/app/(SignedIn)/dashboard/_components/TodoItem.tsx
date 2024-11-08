@@ -33,11 +33,8 @@ export default function TodoItem({ todo } : { todo: TodoType }) {
     return (
         <span className="todo-item flex gap-2 items-center mb-2">
 
-            {isEditing ? 
-                <>
-                    <TodoForm todoTobeEdited={todo} setIsEditing={setIsEditing} />
-                    <Button onClick={() => setIsEditing(false)}>Cancel</Button>
-                </>
+            {isEditing 
+            ?  <TodoForm todoTobeEdited={todo} setIsEditing={setIsEditing} /> 
             : 
                 <>
                     <p>{todo.todoName}</p>

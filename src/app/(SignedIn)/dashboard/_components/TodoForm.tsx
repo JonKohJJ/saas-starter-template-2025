@@ -17,6 +17,7 @@ import { todosSchema } from "@/schemas/todos"
 import { createTodo, updateTodo } from "@/server/actions/todos"
 import { TodoType } from "./TodoItem"
 import { Dispatch, SetStateAction } from "react"
+import { canAddTodo } from "@/server/permissions"
 
 
 export function TodoForm({ todoTobeEdited, setIsEditing } : { todoTobeEdited?: TodoType, setIsEditing?: Dispatch<SetStateAction<boolean>> }) {
@@ -48,7 +49,6 @@ export function TodoForm({ todoTobeEdited, setIsEditing } : { todoTobeEdited?: T
         }
 
         const { reset } = form
-
         if (todoTobeEdited && setIsEditing) {
           setIsEditing(false)
         } else {
@@ -73,11 +73,12 @@ export function TodoForm({ todoTobeEdited, setIsEditing } : { todoTobeEdited?: T
               )}
             />
           </div>
-          <div>
-            <Button disabled={form.formState.isSubmitting} type="submit">
-              {todoTobeEdited ? "Save" : "Add"}
-            </Button>
-          </div>
+          
+          <Button disabled={form.formState.isSubmitting} type="submit">
+            {todoTobeEdited ? "Save" : "Add"}
+          </Button>
+          
+          <Button onClick={() => setIsEditing && setIsEditing(false)} disabled={form.formState.isSubmitting}>Cancel</Button>
         </form>
       </Form>
     )
