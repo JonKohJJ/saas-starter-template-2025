@@ -1,5 +1,5 @@
 {
-  "id": "950941aa-0cab-4a44-8c8a-e26b8dc5cc12",
+  "id": "65c8ba57-c6ee-4f5b-8925-a595946c7739",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -83,6 +83,24 @@
           "primaryKey": false,
           "notNull": true
         },
+        "stripe_subscription_item_id": {
+          "name": "stripe_subscription_item_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stripe_subscription_id": {
+          "name": "stripe_subscription_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "stripe_customer_id": {
+          "name": "stripe_customer_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "tier": {
           "name": "tier",
           "type": "tier",
@@ -111,6 +129,21 @@
           "columns": [
             {
               "expression": "clerk_user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "user_subscriptions.stripe_customer_id_index": {
+          "name": "user_subscriptions.stripe_customer_id_index",
+          "columns": [
+            {
+              "expression": "stripe_customer_id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"

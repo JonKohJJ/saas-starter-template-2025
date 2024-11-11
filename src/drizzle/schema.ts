@@ -64,12 +64,16 @@ export const UserSubscriptionTable = pgTable(
     {
         id: uuid("id").primaryKey().defaultRandom(),
         clerkUserId: text("clerk_user_id").notNull().unique(),
+        stripeSubscriptionItemId: text("stripe_subscription_item_id"),
+        stripeSubscriptionId: text("stripe_subscription_id"),
+        stripeCustomerId: text("stripe_customer_id"),
         tier: TierEnum("tier").notNull(),
         createdAt,
         updatedAt,
     },
     table => ({
-        clerkUserIdIndex: index("user_subscriptions.clerk_user_id_index").on(table.clerkUserId)
+        clerkUserIdIndex: index("user_subscriptions.clerk_user_id_index").on(table.clerkUserId),
+        stripeCustomerIdIndex: index("user_subscriptions.stripe_customer_id_index").on(table.stripeCustomerId),
     })
 )
 
