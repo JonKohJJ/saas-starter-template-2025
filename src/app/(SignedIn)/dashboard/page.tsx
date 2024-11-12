@@ -13,7 +13,7 @@ export default async function DashboardPage(){
     const canAdd = await canAddTodo(userId)
 
     return <div>
-        <p className="text-3xl mb-8">Dashboard Page</p>
+        <p className="text-3xl mb-8">Your Dashboard</p>
 
         <div className="todo-form-div">
             <HasPermission 
