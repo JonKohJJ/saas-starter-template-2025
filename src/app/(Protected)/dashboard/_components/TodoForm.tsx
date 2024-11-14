@@ -58,8 +58,8 @@ export function TodoForm({ todoTobeEdited, setIsEditing } : { todoTobeEdited?: T
 
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-2 items-center">
-          <div>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-2 items-center w-full">
+          <div className="flex-1">
             <FormField
               control={form.control}
               name="todoName"
@@ -78,7 +78,9 @@ export function TodoForm({ todoTobeEdited, setIsEditing } : { todoTobeEdited?: T
             {todoTobeEdited ? "Save" : "Add"}
           </Button>
           
-          <Button onClick={() => setIsEditing && setIsEditing(false)} disabled={form.formState.isSubmitting}>Cancel</Button>
+          {todoTobeEdited &&
+            <Button onClick={() => setIsEditing && setIsEditing(false)} disabled={form.formState.isSubmitting}>Cancel</Button>
+          }
         </form>
       </Form>
     )

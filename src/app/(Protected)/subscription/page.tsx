@@ -21,7 +21,7 @@ export default async function SubscriptionPage() {
     const todoCount = await getTodoCount(userId)
 
     return <div>
-        <p className="text-3xl mb-8">Your Subscription</p>
+        <p className="text-3xl mb-12">Your Subscription</p>
 
         <div className="flex flex-col gap-6">
           
@@ -75,7 +75,7 @@ export default async function SubscriptionPage() {
               ))}
             </div>
 
-          </div>
+        </div>
     </div>  
 }
 

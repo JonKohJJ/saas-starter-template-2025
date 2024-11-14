@@ -12,6 +12,16 @@ export function getTodos(userId: string, { limit }: { limit?: number }) {
     return cacheFn(userId, { limit })
 }
 
+function getTodosInternal(userId: string, { limit }: { limit?: number }) {
+    const data = db.query.TodosTable.findMany({
+        where: ({ clerkUserId }, { eq }) => eq(clerkUserId, userId),
+        orderBy: (({ createdAt }, {desc}) => desc(createdAt)),
+        limit,
+    })
+    
+    return data
+} 
+
 export function getTodo({ id, userId } : {id: string, userId: string}) {
     const cacheFn = DbCache(getTodoInternal, {
         tags: [getIdTag(id, CACHE_TAGS.todos)]
@@ -77,13 +87,7 @@ export async function deleteTodo({id, userId} : {id: string, userId: string}) {
     return deletedTodo
 } 
 
-function getTodosInternal(userId: string, { limit }: { limit?: number }) {
-    return db.query.TodosTable.findMany({
-        where: ({ clerkUserId }, { eq }) => eq(clerkUserId, userId),
-        orderBy: (({ createdAt }, {desc}) => desc(createdAt)),
-        limit,
-    })
-} 
+
 
 function getTodoInternal({ id, userId } : {id: string, userId: string}) {
     return db.query.TodosTable.findFirst({

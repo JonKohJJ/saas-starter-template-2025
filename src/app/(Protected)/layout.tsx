@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
-import SignedInNavBar from "./_components/SignedInNavBar";
+import ProtectedNavBar from "./_components/ProtectedNavBar";
 
 export default function SignedInLayout({ children } : { children: ReactNode }) {
   return (
     <div className="flex">
-        <SignedInNavBar />
+        <ProtectedNavBar />
         <div className="flex w-full justify-center">
-          <div className="w-full max-w-[1300px] p-8 border-x-[1px] border-neutral-300">
+          <div className="w-full max-w-[1300px] p-8">
             {children}
           </div>
         </div>

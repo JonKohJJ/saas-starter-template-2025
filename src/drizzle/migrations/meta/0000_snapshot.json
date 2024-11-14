@@ -1,5 +1,5 @@
 {
-  "id": "65c8ba57-c6ee-4f5b-8925-a595946c7739",
+  "id": "22336202-5d40-4da2-ae49-5d633c947cdf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -171,7 +171,18 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.tier": {
+      "name": "tier",
+      "schema": "public",
+      "values": [
+        "Free",
+        "Basic",
+        "Standard",
+        "Premium"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},

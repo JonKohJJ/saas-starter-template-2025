@@ -4,16 +4,16 @@ import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
 import { eq } from "drizzle-orm";
 
 export async function deleteUser(clerkUserId: string) {
-    const [deletedUser, deletedTodos] = await db.batch([
-        db
-            .delete(UserSubscriptionTable)
-            .where(eq(UserSubscriptionTable.clerkUserId, clerkUserId))
-            .returning(),
-        db
-            .delete(TodosTable)
-            .where(eq(TodosTable.clerkUserId, clerkUserId))
-            .returning()
-    ])
+
+    const deletedUser = await db
+        .delete(UserSubscriptionTable)
+        .where(eq(UserSubscriptionTable.clerkUserId, clerkUserId))
+        .returning()
+    
+    const deletedTodos = await db
+        .delete(TodosTable)
+        .where(eq(TodosTable.clerkUserId, clerkUserId))
+        .returning()
     
 
     deletedUser.forEach((user) => {
@@ -32,5 +32,4 @@ export async function deleteUser(clerkUserId: string) {
         })
     })
 
-    return [deleteUser, deletedTodos]
 }

@@ -3,7 +3,7 @@ import { canAccessAnalytics } from "@/server/permissions";
 
 export default function SubscriptionPage() {
   return <div>
-    <p className="text-3xl mb-8">Your Analytics</p>
+    <p className="text-3xl mb-12">Your Analytics</p>
 
     <HasPermission 
         permission={canAccessAnalytics} 

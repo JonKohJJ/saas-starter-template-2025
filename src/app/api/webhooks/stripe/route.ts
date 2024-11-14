@@ -10,15 +10,11 @@ const stripe = new Stripe(env.STRIPE_SECRET_KEY)
 
 export async function POST(request: NextRequest) {
 
-  console.log("inside route - request - ", request)
-
   const event = stripe.webhooks.constructEvent(
     await request.text(),
     request.headers.get("stripe-signature") as string,
     env.STRIPE_WEBHOOK_SECRET
   )
-
-  console.log('inside route - event -', event)
 
   switch (event.type) {
     case "customer.subscription.deleted": {
